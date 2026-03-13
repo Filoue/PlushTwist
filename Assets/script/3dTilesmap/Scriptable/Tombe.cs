@@ -4,7 +4,7 @@ using UnityEngine;
 public class Tombe : ScriptableObject
 {
     public GameObject prefabs;
-    public string name;
+    public string itemName;
     public string description;
 
     public float temporalyValue;

@@ -17,11 +17,11 @@ public class PlacableObject : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     
     private Vector2 mousePosition;
-    private Camera camera;
+    private Camera mainCamera;
 
     void Start()
     {
-        camera = Camera.main;
+        mainCamera = Camera.main;
     }
 
     public void OnMousePos(InputAction.CallbackContext context)
