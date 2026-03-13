@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3805000182268401326}
   - component: {fileID: 3634875597750341429}
   - component: {fileID: 4770233926362294901}
+  - component: {fileID: 6644101101797167966}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -112,3 +113,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6644101101797167966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126169238837040306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f9fc4a39ee17e42a37404cc4daa4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaceableObjects

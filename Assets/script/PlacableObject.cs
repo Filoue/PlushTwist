@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 
 public class PlacableObject : MonoBehaviour
@@ -8,6 +9,8 @@ public class PlacableObject : MonoBehaviour
     [Header("Placable Object")]
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Vector3Int position;
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private TileBase tile;
     
     [Header("player")]
     [SerializeField] private float speed;
@@ -48,6 +51,5 @@ public class PlacableObject : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log($"Mouse Screen Position: {mousePosition}");
     }
 }
