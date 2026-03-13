@@ -41,6 +41,8 @@ public class PlacableObject : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
         {
             Debug.Log($"Hit {hit.transform.name} at {hit.point}");
+            
+            Instantiate(prefabs[0], new Vector3Int((int)hit.point.x, 0, (int)hit.point.z), Quaternion.identity);
         }
     }
 
