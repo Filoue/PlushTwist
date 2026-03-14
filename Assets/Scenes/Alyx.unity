@@ -1991,8 +1991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BloodStorage
   bloodAmount: 0
   maxBloodAmount: 500
-  connectedBloodRoots:
-  - {fileID: 39868369}
+  connectedBloodRoots: []
 --- !u!65 &1132647348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3008,6 +3007,7 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 5959157090103878404, guid: ba792369ec6db994bae9b9411d6362bb, type: 3}
   spawnPrice: 100
   spawnInterval: 5
+  bloodStorages: []
 --- !u!65 &1914141978
 BoxCollider:
   m_ObjectHideFlags: 0

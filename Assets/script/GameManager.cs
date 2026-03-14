@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // Calculate total blood amount from all BloodStorage objects
         blood = 0;
         foreach (GridObject gridObject in gridObjects)
         {

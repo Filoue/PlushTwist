@@ -25,12 +25,14 @@ public class BloodRoot : GridObject
         }
         else
         {
+            // Check if the current blood source is empty
             if (bloodSource.GetComponent<BloodSource>().isEmpty)
             {
                 bloodSource = null;
                 return;
             }
 
+            // Pump blood from the source
             if (bloodAmount < maxBloodAmount)
             {
                 float bloodToPump = Mathf.Min(pumpSpeed * Time.deltaTime, maxBloodAmount - bloodAmount);

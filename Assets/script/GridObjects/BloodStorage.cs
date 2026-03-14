@@ -4,23 +4,15 @@ using UnityEngine;
 public class BloodStorage : GridObject
 {
     public float maxBloodAmount = 100f;
+    public int range = 3;
     [SerializeField]
     private List<BloodRoot> connectedBloodRoots = new List<BloodRoot>();
 
     private void Update()
     {
-        List<GridObject> neighbours = getNeighbours(3);
-        foreach (GridObject neighbour in neighbours)
-        {
-            BloodRoot bloodRoot = neighbour.GetComponent<BloodRoot>();
-            if (bloodRoot != null && !connectedBloodRoots.Contains(bloodRoot))
-            {
-                connectedBloodRoots.Add(bloodRoot);
-            }
-        }
+        CheckBloodRoots();
 
-        //connectedBloodRoots.RemoveAll(root => !neighbours.Contains(root));
-
+        // Transfer blood from connected BloodRoots to this BloodStorage
         foreach (BloodRoot bloodRoot in connectedBloodRoots)
         {
             if (bloodAmount < maxBloodAmount)
@@ -34,6 +26,21 @@ public class BloodStorage : GridObject
                 break;
             }
         }
+    }
+
+    private void CheckBloodRoots()
+    {
+        List<GridObject> neighbours = getNeighbours(range);
+        foreach (GridObject neighbour in neighbours)
+        {
+            BloodRoot bloodRoot = neighbour.GetComponent<BloodRoot>();
+            if (bloodRoot != null && !connectedBloodRoots.Contains(bloodRoot))
+            {
+                connectedBloodRoots.Add(bloodRoot);
+            }
+        }
+
+        connectedBloodRoots.RemoveAll(root => !neighbours.Contains(root));
     }
 
     public void AddBlood(float amount)

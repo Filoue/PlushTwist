@@ -13,22 +13,11 @@ public class Spawner : GridObject
 
     private void Update()
     {
-        foreach (GridObject obj in getNeighbours(5))
-        {
-            if (obj is BloodStorage storage)
-            {
-                bloodStorages.Add(storage);
-            }
-        }
-
-        availableBloodAmount = 0f;
-        foreach (BloodStorage storage in bloodStorages)
-        {
-            availableBloodAmount += storage.bloodAmount;
-        }
+        CheckStorages();
 
         timeSinceLastSpawn += Time.deltaTime;
-        
+
+        // Check if we can spawn an object
         if (timeSinceLastSpawn >= spawnInterval && availableBloodAmount >= spawnPrice)
         {
             SpawnObject();
@@ -48,6 +37,28 @@ public class Spawner : GridObject
                     storage.RemoveBlood(storage.bloodAmount);
                 }
             }
+        }
+    }
+
+    private void CheckStorages()
+    {
+        // Update list of nearby blood storages
+        List<GridObject> neighbours = getNeighbours(5);
+        foreach (GridObject obj in neighbours)
+        {
+            if (obj is BloodStorage storage)
+            {
+                bloodStorages.Add(storage);
+            }
+        }
+
+        bloodStorages.RemoveAll(storage => !neighbours.Contains(storage));
+
+        // Calculate available blood amount
+        availableBloodAmount = 0f;
+        foreach (BloodStorage storage in bloodStorages)
+        {
+            availableBloodAmount += storage.bloodAmount;
         }
     }
     
