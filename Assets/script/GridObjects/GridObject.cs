@@ -6,6 +6,7 @@ public abstract class GridObject : MonoBehaviour
     private GameManager gameManager;
     public float price = 0f;
     public float bloodAmount = 0f;
+    public bool isSellable = true;
     public List<GridObject> getNeighbours(int range)
     {
         List<GridObject> neighbours = new List<GridObject>();

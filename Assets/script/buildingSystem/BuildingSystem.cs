@@ -89,8 +89,7 @@ public class BuildingSystem : MonoBehaviour
         {
             if (GetMouseWorldPosition() == Vector3.zero) return;
             Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
-            if (position == Vector3.zero) return;
-            else if (gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] == null)
+            if (gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] == null)
             {
                 if (gameManager.availableBlood >= gameManager.selectedPrefab.GetComponent<GridObject>().price)
                 {
@@ -105,14 +104,22 @@ public class BuildingSystem : MonoBehaviour
     {
         if (context.performed)
         {
-            if (GetMouseWorldPosition() == Vector3.zero) return;
             Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
             if (position == Vector3.zero) return;
-            else if (gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] != null)
+
+            GridObject gridObject = gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2];
+            if (gridObject != null)
             {
-                GridObject gridObject = gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2];
-                gameManager.AddBlood(gridObject.price);
-                Destroy(gridObject.gameObject);
+                if (gridObject.isSellable)
+                {
+                    gridObject = gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2];
+                    gameManager.AddBlood(gridObject.price);
+                    Destroy(gridObject.gameObject);
+                }
+                else
+                {
+                    Debug.Log("This object cannot be sold.");
+                }
             }
         }
     }

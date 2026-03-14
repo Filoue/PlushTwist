@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BloodStorage : GridObject
@@ -7,6 +8,9 @@ public class BloodStorage : GridObject
     public float maxBloodAmount = 100f;
     public int range = 3;
     private List<BloodRoot> connectedBloodRoots = new List<BloodRoot>();
+    private float aquiredBloodSinceLastSecond = 0f;
+    private float timeSinceLastSecond = 0f;
+    public GameObject floatingTextPrefab;
 
     private void Update()
     {
@@ -22,11 +26,23 @@ public class BloodStorage : GridObject
                 bloodToPump = Mathf.Min(bloodToPump, bloodAvailable);
                 bloodAmount += bloodToPump;
                 bloodRoot.bloodAmount -= bloodToPump;
+                aquiredBloodSinceLastSecond += bloodToPump;
             }
             else
             {
                 break;
             }
+        }
+
+        timeSinceLastSecond += Time.deltaTime;
+        if (timeSinceLastSecond >= 1f)
+        {
+            if (aquiredBloodSinceLastSecond >= 1f)
+            {
+                GameObject.Instantiate(floatingTextPrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity).GetComponentInChildren<TextMeshPro>().SetText("+" + ((int)aquiredBloodSinceLastSecond).ToString());
+            }
+            timeSinceLastSecond = 0f;
+            aquiredBloodSinceLastSecond = 0f;
         }
     }
 

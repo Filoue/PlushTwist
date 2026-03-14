@@ -7,11 +7,13 @@ public class BloodRoot : GridObject
     public float maxBloodAmount = 50f;
     public int range = 2;
     private GridObject bloodSource;
+    public bool active = true;
 
     private void Update()
     {
         if (bloodSource == null)
         {
+            active = false;
             //Find blood source
             List<GridObject> neighbours = getNeighbours(range);
             foreach (GridObject neighbour in neighbours)
@@ -35,12 +37,28 @@ public class BloodRoot : GridObject
             // Pump blood from the source
             if (bloodAmount < maxBloodAmount)
             {
+                active = true;
                 float bloodToPump = Mathf.Min(pumpSpeed * Time.deltaTime, maxBloodAmount - bloodAmount);
                 float bloodAvailable = bloodSource.GetComponent<BloodSource>().bloodAmount;
                 bloodToPump = Mathf.Min(bloodToPump, bloodAvailable);
                 bloodAmount += bloodToPump;
                 bloodSource.GetComponent<BloodSource>().bloodAmount -= bloodToPump;
             }
+            else
+            {
+                active = false;
+            }
+        }
+
+        if (active)
+        {
+            // Visualize active state (e.g., change color)
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            // Visualize inactive state (e.g., change color)
+            GetComponent<Renderer>().material.color = Color.gray;
         }
     }
 

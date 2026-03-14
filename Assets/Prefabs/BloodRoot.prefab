@@ -130,3 +130,4 @@ MonoBehaviour:
   pumpSpeed: 10
   maxBloodAmount: 50
   range: 2
+  active: 1

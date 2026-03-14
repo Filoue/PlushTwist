@@ -127,6 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BloodStorage
   price: 200
   bloodAmount: 0
+  isSellable: 1
   pumpSpeed: 40
   maxBloodAmount: 500
   range: 5
+  floatingTextPrefab: {fileID: 4370867551116732520, guid: db1b309e40d178d4991726b2e52d442a, type: 3}
