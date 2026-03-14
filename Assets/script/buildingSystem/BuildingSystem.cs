@@ -11,10 +11,37 @@ public class BuildingSystem : MonoBehaviour
     private static Vector3 mousePosition;
     private GameManager gameManager;
 
+    // Ghost cursor
+    public GameObject ghostCursor;
+
+
     private void Start()
     {
         grid = gridLayout.gameObject.GetComponent<Grid>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Update()
+    {
+        if (GetMouseWorldPosition() != Vector3.zero)
+        {
+            // Check if valid placement position
+            if (isCellEmpty(SnapCoordinateToGrid(GetMouseWorldPosition())))
+            {
+                ghostCursor.GetComponent<MeshRenderer>().material.color = new Color(0, 1, 0, 0.5f); // Green for valid
+            }
+            else
+            {
+                ghostCursor.GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0, 0.5f); // Red for invalid
+            }
+            ghostCursor.SetActive(true);
+            ghostCursor.transform.position = SnapCoordinateToGrid(GetMouseWorldPosition());
+            ghostCursor.GetComponent<MeshFilter>().sharedMesh = gameManager.selectedPrefab.GetComponent<MeshFilter>().sharedMesh;
+        }
+        else
+        {
+            ghostCursor.SetActive(false);
+        }
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -93,5 +120,10 @@ public class BuildingSystem : MonoBehaviour
     public void MousePosition(InputAction.CallbackContext context)
     {
         mousePosition = context.ReadValue<Vector2>();
+    }
+
+    private bool isCellEmpty(Vector3 position)
+    {
+        return gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] == null;
     }
 }
