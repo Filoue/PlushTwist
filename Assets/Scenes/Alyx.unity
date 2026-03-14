@@ -436,7 +436,7 @@ Transform:
   m_GameObject: {fileID: 133031803}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 22.37, z: -6.67}
+  m_LocalPosition: {x: 0, y: 22.37, z: -9.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -516,7 +516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1915038780111429143, guid: 74d0906be8df00c489e657824c9164aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 1915038780111429143, guid: 74d0906be8df00c489e657824c9164aa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -524,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1915038780111429143, guid: 74d0906be8df00c489e657824c9164aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 49
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1915038780111429143, guid: 74d0906be8df00c489e657824c9164aa, type: 3}
       propertyPath: m_LocalRotation.w
@@ -766,7 +766,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pompe le sang d'un cadavre proche.
+  m_text: 'Pompe le sang d''un cadavre proche.
+
+    Prix: 50'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1040,7 +1042,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Stocke le sang r\xE9colt\xE9 par les racines \xE9carlates"
+  m_text: "Stocke le sang r\xE9colt\xE9 par les racines \xE9carlates\nPrix: 200"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1978,6 +1980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 986788081}
   - component: {fileID: 986788082}
+  - component: {fileID: 986788083}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -2019,8 +2022,20 @@ MonoBehaviour:
   - {fileID: 8040859485152081333, guid: 0beed88beb8b97845ad4dd83593fc191, type: 3}
   - {fileID: 6501478928047782144, guid: 74d0906be8df00c489e657824c9164aa, type: 3}
   - {fileID: 2253589085979213350, guid: 0829bda0662be8746bf555bb430dd0f3, type: 3}
-  gridSizeX: 100
-  gridSizeZ: 100
+  gridSizeX: 40
+  gridSizeZ: 20
+--- !u!114 &986788083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986788080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299ba38980f95db4b869a428692bf266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuManager
 --- !u!1 &1000276188
 GameObject:
   m_ObjectHideFlags: 0
@@ -3563,7 +3578,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fait apparaitre des sbires.
+  m_text: 'Fait apparaitre des sbires
+
+    Prix: 500
+
+    Prix par sbire: 100'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3816,8 +3835,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 40}
-  m_SizeDelta: {x: 366.2159, y: 55.1117}
+  m_AnchoredPosition: {x: 0, y: 48.7249}
+  m_SizeDelta: {x: 366.2159, y: 72.5614}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1525776754
 MonoBehaviour:
@@ -4030,8 +4049,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 41.984985}
-  m_SizeDelta: {x: 366.2159, y: 55.1117}
+  m_AnchoredPosition: {x: 0, y: 64.73191}
+  m_SizeDelta: {x: 366.2159, y: 100.6055}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1614938891
 MonoBehaviour:
@@ -4232,7 +4251,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1648966777}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 986788083}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1648966777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5179,8 +5210,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 52.92726}
-  m_SizeDelta: {x: 366.2159, y: 76.9963}
+  m_AnchoredPosition: {x: 0, y: 64.45652}
+  m_SizeDelta: {x: 366.2159, y: 100.0548}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2122801190
 MonoBehaviour:

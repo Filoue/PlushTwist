@@ -25,6 +25,12 @@ public class BuildingSystem : MonoBehaviour
     {
         if (GetMouseWorldPosition() != Vector3.zero)
         {
+            if(!isPositionInGrid(GetMouseWorldPosition()))
+            {
+                ghostCursor.SetActive(false);
+                return;
+            }
+
             // Check if valid placement position
             if (isCellEmpty(SnapCoordinateToGrid(GetMouseWorldPosition())))
             {
@@ -88,6 +94,7 @@ public class BuildingSystem : MonoBehaviour
         if (context.performed)
         {
             if (GetMouseWorldPosition() == Vector3.zero) return;
+            if (!isPositionInGrid(GetMouseWorldPosition())) return;
             Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
             if (gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] == null)
             {
@@ -104,8 +111,9 @@ public class BuildingSystem : MonoBehaviour
     {
         if (context.performed)
         {
+            if (GetMouseWorldPosition() == Vector3.zero) return;
+            if (!isPositionInGrid(GetMouseWorldPosition())) return;
             Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
-            if (position == Vector3.zero) return;
 
             GridObject gridObject = gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2];
             if (gridObject != null)
@@ -132,5 +140,11 @@ public class BuildingSystem : MonoBehaviour
     private bool isCellEmpty(Vector3 position)
     {
         return gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] == null;
+    }
+
+    private bool isPositionInGrid(Vector3 position)
+    {
+        return position.x >= -gameManager.gridSizeX / 2 + 0.5f && position.x < gameManager.gridSizeX / 2 - 0.5f &&
+               position.z >= -gameManager.gridSizeZ / 2 + 0.5f && position.z < gameManager.gridSizeZ / 2 - 0.5f;
     }
 }
