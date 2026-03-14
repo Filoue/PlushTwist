@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class BloodStorage : GridObject
 {
+    public float pumpSpeed = 40f;
     public float maxBloodAmount = 100f;
     public int range = 3;
-    [SerializeField]
     private List<BloodRoot> connectedBloodRoots = new List<BloodRoot>();
 
     private void Update()
@@ -17,9 +17,11 @@ public class BloodStorage : GridObject
         {
             if (bloodAmount < maxBloodAmount)
             {
-                float bloodToTransfer = Mathf.Min(bloodRoot.bloodAmount, maxBloodAmount - bloodAmount);
-                bloodAmount += bloodToTransfer;
-                bloodRoot.bloodAmount -= bloodToTransfer;
+                float bloodToPump = Mathf.Min(pumpSpeed * Time.deltaTime, maxBloodAmount - bloodAmount);
+                float bloodAvailable = bloodRoot.bloodAmount;
+                bloodToPump = Mathf.Min(bloodToPump, bloodAvailable);
+                bloodAmount += bloodToPump;
+                bloodRoot.bloodAmount -= bloodToPump;
             }
             else
             {
@@ -50,5 +52,11 @@ public class BloodStorage : GridObject
     public void RemoveBlood(float amount)
     {
         bloodAmount = Mathf.Max(bloodAmount - amount, 0f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position, new Vector3(range * 2f + 1f, 0.1f, range * 2f + 1f));
     }
 }

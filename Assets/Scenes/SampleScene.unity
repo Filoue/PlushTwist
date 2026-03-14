@@ -407,7 +407,6 @@ GameObject:
   m_Component:
   - component: {fileID: 632604688}
   - component: {fileID: 632604687}
-  - component: {fileID: 632604689}
   m_Layer: 0
   m_Name: PLayer
   m_TagString: Untagged
@@ -442,7 +441,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 632604689}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ObjectDrag, Assembly-CSharp
         m_MethodName: OnMouseDown
         m_Mode: 0
@@ -534,24 +533,12 @@ Transform:
   m_GameObject: {fileID: 632604686}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19136, y: 0, z: 0.507}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &632604689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632604686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb28b0675d384784cb3fa5e7424ea5a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectDrag
 --- !u!1 &665114422
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,10 +760,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingSystem
   gridLayout: {fileID: 855171436}
-  mainTilemap: {fileID: 1693561157}
-  tile: {fileID: 11400000, guid: 13449c18d07ecae4e9ba17fa9350fd78, type: 2}
-  prefab1: {fileID: 1826272847}
-  prefab2: {fileID: 1826272847}
+  placementLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1693561154
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,11 +890,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1826272847 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7126169238837040306, guid: 787e57f724fd7564286c35fafbaf3ae4, type: 3}
-  m_PrefabInstance: {fileID: 5971063303960978115}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5971063303960978115
 PrefabInstance:
   m_ObjectHideFlags: 0

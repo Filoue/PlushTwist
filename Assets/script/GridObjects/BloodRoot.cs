@@ -5,7 +5,7 @@ public class BloodRoot : GridObject
 {
     public float pumpSpeed = 10f;
     public float maxBloodAmount = 50f;
-    [SerializeField]
+    public int range = 2;
     private GridObject bloodSource;
 
     private void Update()
@@ -13,7 +13,7 @@ public class BloodRoot : GridObject
         if (bloodSource == null)
         {
             //Find blood source
-            List<GridObject> neighbours = getNeighbours(2);
+            List<GridObject> neighbours = getNeighbours(range);
             foreach (GridObject neighbour in neighbours)
             {
                 if (neighbour is BloodSource && !neighbour.GetComponent<BloodSource>().isEmpty)
@@ -42,5 +42,11 @@ public class BloodRoot : GridObject
                 bloodSource.GetComponent<BloodSource>().bloodAmount -= bloodToPump;
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(range * 2f + 1f, 0.1f, range * 2f + 1f));
     }
 }

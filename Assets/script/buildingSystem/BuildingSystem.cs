@@ -1,45 +1,39 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Tilemaps;
 
 public class BuildingSystem : MonoBehaviour
 {
-    public static BuildingSystem current;
-    
     public GridLayout gridLayout;
+    public LayerMask placementLayerMask;
     private Grid grid;
-    [SerializeField] private Tilemap mainTilemap;
-    [SerializeField] private TileBase tile;
-    
-    public GameObject prefab1;
-    public GameObject prefab2;
-    
-    private PlaceableObjects objectToPlace;
 
     private static Vector3 mousePosition;
-    
-    #region Unity methods
+    private GameManager gameManager;
 
-    private void Awake()
+    private void Start()
     {
-        current = this;
         grid = gridLayout.gameObject.GetComponent<Grid>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
-    void Update()
+    private Vector3 GetMouseWorldPosition()
     {
-        Debug.Log($"Mouse Position: {mousePosition}");
-    }
+        // Don't do anything if the mouse is outside the screen
+        if (mousePosition.x < 0 || mousePosition.x > Screen.width || mousePosition.y < 0 || mousePosition.y > Screen.height)
+        {
+            return Vector3.zero;
+        }
 
-    #endregion
-    
-    #region Utils
+        // Don't do anything if the mouse is on UI
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return Vector3.zero;
+        }
 
-    public static Vector3 GetMouseWorldPosition()
-    {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, placementLayerMask))
         {
             return hit.point;
         }
@@ -49,44 +43,50 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
-    public Vector3 SnapCoordinateToGrid(Vector3 position)
+    private Vector3 SnapCoordinateToGrid(Vector3 position)
     {
         Vector3Int cellPos = gridLayout.WorldToCell(position);
         position = grid.GetCellCenterWorld(cellPos);
         
         return position;
     }
-    
-    #endregion
-    
-    #region Building Placement
 
-    public void InitializeWithObject(GameObject prefab)
+    private void InitializeWithObject(GameObject prefab, Vector3 position)
     {
-        Vector3 position = SnapCoordinateToGrid(Vector3.zero);
-        
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-        objectToPlace =  obj.GetComponent<PlaceableObjects>();
-        obj.AddComponent<ObjectDrag>();
     }
-    
-    #endregion
-    
-    #region Input System
 
-    public void BuildGraveInput(InputAction.CallbackContext context)
+    public void Place(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            InitializeWithObject(prefab1);
+            if (GetMouseWorldPosition() == Vector3.zero) return;
+            Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
+            if (position == Vector3.zero) return;
+            else if (gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] == null)
+            {
+                if (gameManager.availableBlood >= gameManager.selectedPrefab.GetComponent<GridObject>().price)
+                {
+                    InitializeWithObject(gameManager.selectedPrefab, position);
+                    gameManager.RemoveBlood(gameManager.selectedPrefab.GetComponent<GridObject>().price);
+                }
+            }
         }
     }
 
-    public void BuildPlantInput(InputAction.CallbackContext context)
+    public void Remove(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            InitializeWithObject(prefab2);
+            if (GetMouseWorldPosition() == Vector3.zero) return;
+            Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
+            if (position == Vector3.zero) return;
+            else if (gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2] != null)
+            {
+                GridObject gridObject = gameManager.gridObjectsArray[(int)position.x + gameManager.gridSizeX / 2, (int)position.z + gameManager.gridSizeZ / 2];
+                gameManager.AddBlood(gridObject.price);
+                Destroy(gridObject.gameObject);
+            }
         }
     }
 
@@ -94,6 +94,4 @@ public class BuildingSystem : MonoBehaviour
     {
         mousePosition = context.ReadValue<Vector2>();
     }
-
-    #endregion
 }
