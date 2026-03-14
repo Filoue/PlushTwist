@@ -8,7 +8,7 @@
             "actions": [
                 {
                     "name": "Mouse Main Input",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "12515db5-d6a1-49f3-8098-a7cbc9419486",
                     "expectedControlType": "",
                     "processors": "",

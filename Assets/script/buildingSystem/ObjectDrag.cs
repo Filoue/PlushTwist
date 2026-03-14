@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ObjectDrag : MonoBehaviour
 {
     private Vector3 offset;
+    
 
     private void OnMouseDown()
     {
@@ -11,7 +13,7 @@ public class ObjectDrag : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        Vector3 pos = BuildingSystem.GetMouseWorldPosition() + offset;
-        transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
+        Vector3 pos = BuildingSystem.GetMouseWorldPosition() + offset; 
+        transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);  
     }
 }

@@ -15,6 +15,8 @@ public class BuildingSystem : MonoBehaviour
     public GameObject prefab2;
     
     private PlaceableObjects objectToPlace;
+
+    private static Vector3 mousePosition;
     
     #region Unity methods
 
@@ -24,13 +26,18 @@ public class BuildingSystem : MonoBehaviour
         grid = gridLayout.gameObject.GetComponent<Grid>();
     }
 
+    void Update()
+    {
+        Debug.Log($"Mouse Position: {mousePosition}");
+    }
+
     #endregion
     
     #region Utils
 
     public static Vector3 GetMouseWorldPosition()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -82,6 +89,11 @@ public class BuildingSystem : MonoBehaviour
             InitializeWithObject(prefab2);
         }
     }
-    
+
+    public void MousePosition(InputAction.CallbackContext context)
+    {
+        mousePosition = context.ReadValue<Vector2>();
+    }
+
     #endregion
 }
